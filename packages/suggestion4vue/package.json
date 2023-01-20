@@ -1,0 +1,31 @@
+{
+  "name": "suggestion4vue",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/suggestion4vue.es.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "build": "vue-tsc --noEmit && vite build",
+    "dev": "vue-tsc --noEmit && vite build --watch"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/suggestion4vue.es.js"
+    }
+  },
+  "dependencies": {
+    "@tsutoringo/vue-utils": "^0.2.9",
+    "vite-plugin-dts": "^1.7.1",
+    "vue": "^3.2.45"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.2.0",
+    "typescript": "^4.9.4",
+    "vite": "^3.2.5",
+    "vue-tsc": "^0.39.5"
+  }
+}
