@@ -12,11 +12,6 @@ const searchResult = computed(() => searchValue.value === '' ? items : items.fil
   <SearchBox>
     <SuggestionInput v-model="searchValue" />
     <SuggestionItem v-for="item in searchResult" :key="item" v-slot="{index}" @pick="() => confetti()">{{ index }}{{ item }}</SuggestionItem>
-    <SuggestionItem v-slot="{index}" @pick="() => confetti()">{{ index }} out
-      <SuggestionItem v-slot="{index}" @pick="() => confetti()">
-        {{ index }}in
-      </SuggestionItem>
-    </SuggestionItem>
   </SearchBox>
 </template>
 
