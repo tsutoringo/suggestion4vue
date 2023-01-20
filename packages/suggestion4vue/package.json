@@ -8,6 +8,7 @@
   "typings": "dist/index.d.ts",
   "source": "src/index.ts",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "vue-tsc --noEmit && vite build",
     "dev": "vue-tsc --noEmit && vite build --watch"
   },
