@@ -11,7 +11,7 @@ export default defineConfig({
       fileName: (format) => `suggestion4vue.${format}.js`
     },
     rollupOptions: {
-      external: ['vue'],
+      external: ['vue', '@tsutoringo/vue-utils'],
       output: {
         // Provide global variables to use in the UMD build
         // Add external deps here
