@@ -1,10 +1,11 @@
-import { getCurrentInstance, inject, InjectionKey, reactive, ref } from 'vue';
+import { getCurrentInstance, inject, InjectionKey, reactive, ref, watch } from 'vue';
 
 export const useSuggestionProvider = () => {
   const items = reactive<Map<number, SuggestionItem>>(new Map());
   const indexedItems = ref<SuggestionItem[]>([]);
-  const isOpen = ref<boolean>(true);
+  const isOpen = ref<boolean>(false);
   const selectedItem = ref<SuggestionItem | void>(undefined);
+  const searchBox = ref<HTMLElement | void>(undefined);
 
   const addItem = (uid: number, item: SuggestionItem) => {
     items.set(uid, item);
@@ -65,6 +66,21 @@ export const useSuggestionProvider = () => {
     indexedItems.value.push(item);
   }
 
+  const otherClickHandler = (event: MouseEvent) => {
+    if (
+      isOpen.value
+      && searchBox.value
+      && !searchBox.value.contains(event.target as Node)
+    ) {
+      closeBox();
+    }
+  }
+
+  watch(isOpen, (value) => value
+    ? document.addEventListener('click', otherClickHandler)
+    : document.removeEventListener('click', otherClickHandler)
+  );
+
   return {
     items,
     indexedItems,
@@ -78,7 +94,9 @@ export const useSuggestionProvider = () => {
     clearIndexedItems,
     addItemToIndexedItems,
     next,
-    prev
+    prev,
+    searchBox,
+    isOpen
   };
 };
 

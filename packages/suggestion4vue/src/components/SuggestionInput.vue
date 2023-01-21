@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { injectSuggestionProvider } from './provider';
 
-const { selectedItem, selectItem, next, prev } = injectSuggestionProvider();
+const { selectedItem, openBox, selectItem, next, prev } = injectSuggestionProvider();
 
 const props = withDefaults(
   defineProps<{
@@ -35,5 +35,6 @@ const value = computed<string>({
     @keydown.enter.prevent="enter($event)"
     @keydown.down.prevent="next()"
     @keydown.up.prevent="prev()"
+    @focus="openBox"
   >
 </template>
