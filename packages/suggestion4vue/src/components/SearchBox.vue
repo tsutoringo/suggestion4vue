@@ -9,7 +9,7 @@ export default defineComponent({
 
     const provided = useSuggestionProvider();
     provide(suggestionInjectionKey, provided);
-    const { setItemIndex, clearIndexedItems, addItemToIndexedItems, searchBox } = provided;
+    const { setItemIndex, clearIndexedItems, addItemToIndexedItems, searchBox, isOpen } = provided;
 
     // Reindex
     watch(provided.items, () => {
@@ -32,7 +32,7 @@ export default defineComponent({
     return () => h(
       'div',
       {
-        class: 'search-box',
+        class: ['search-box', { open: isOpen.value }],
         ref: searchBox
       },
       [renderSlot(slots, 'default')]
