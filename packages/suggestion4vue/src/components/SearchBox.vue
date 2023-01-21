@@ -1,7 +1,5 @@
 <script lang="ts">
 import { computed, defineComponent, h, nextTick, provide, renderSlot, VNode, watch } from 'vue';
-import { getVNodesByType } from '@tsutoringo/vue-utils';
-import SuggestionItem from './SuggestionItem.vue'
 import { suggestionInjectionKey, useSuggestionProvider } from './provider';
 
 export default defineComponent({
@@ -31,18 +29,14 @@ export default defineComponent({
       }
     });
 
-    return () => {
-      renderedSlot = h(
-        'div',
-        {
-          class: 'search-box',
-          ref: searchBox
-        },
-        [renderSlot(slots, 'default')]
-      );
-
-      return renderedSlot;
-    }
+    return () => h(
+      'div',
+      {
+        class: 'search-box',
+        ref: searchBox
+      },
+      [renderSlot(slots, 'default')]
+    );
   }
 });
 </script>
