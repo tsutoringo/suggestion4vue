@@ -1,70 +1,70 @@
-import { reactive as V, ref as I, watch as b, inject as T, getCurrentInstance as k, defineComponent as B, provide as U, h as L, renderSlot as S, unref as p, openBlock as w, createElementBlock as $, createCommentVNode as N, computed as E, withDirectives as O, isRef as P, withKeys as g, withModifiers as _, vModelText as z, onMounted as D, onBeforeUnmount as F, normalizeClass as H } from "vue";
+import { reactive as b, ref as g, watch as V, inject as T, getCurrentInstance as S, defineComponent as _, provide as U, h as L, renderSlot as w, unref as v, openBlock as y, createElementBlock as $, createCommentVNode as N, computed as j, withDirectives as O, isRef as P, withKeys as B, withModifiers as k, vModelText as z, onMounted as D, onBeforeUnmount as F, normalizeClass as H } from "vue";
 const R = () => {
-  const o = V(/* @__PURE__ */ new Map()), t = I([]), e = I(!1), n = I(void 0), i = I(void 0), x = (u, f) => {
-    o.set(u, f);
+  const o = b(/* @__PURE__ */ new Map()), t = g([]), e = g(!1), n = g(void 0), r = g(void 0), p = (u, I) => {
+    o.set(u, I);
   }, c = (u) => {
     o.delete(u);
-  }, a = (u, f) => {
-    const C = o.get(u);
-    !C || (C.index = f);
+  }, a = (u, I) => {
+    const E = o.get(u);
+    !E || (E.index = I);
   }, d = () => {
     !n.value || n.value.pick();
-  }, r = () => e.value = !0, m = () => e.value = !1, v = () => {
-    n.value = n.value ? t.value[n.value.index + 1] : t.value[0], l();
+  }, l = () => e.value = !0, x = () => e.value = !1, f = () => {
+    n.value = n.value ? t.value[n.value.index + 1] : t.value[0], s();
+  }, m = () => {
+    n.value = n.value ? t.value[n.value.index - 1] : t.value[t.value.length - 1], s();
   }, s = () => {
-    n.value = n.value ? t.value[n.value.index - 1] : t.value[t.value.length - 1], l();
-  }, l = () => {
     n.value && n.value.select();
-  }, M = () => t.value = [], K = (u) => {
-    const f = o.get(u);
-    if (!f) {
+  }, i = () => t.value = [], K = (u) => {
+    const I = o.get(u);
+    if (!I) {
       console.warn(`Unknown item ${u}`);
       return;
     }
-    t.value.push(f);
-  }, y = (u) => {
-    e.value && i.value && !i.value.contains(u.target) && m();
+    t.value.push(I);
+  }, C = (u) => {
+    e.value && r.value && !r.value.contains(u.target) && x();
   };
-  return b(
+  return V(
     e,
-    (u) => u ? document.addEventListener("click", y) : document.removeEventListener("click", y)
+    (u) => u ? document.addEventListener("click", C) : document.removeEventListener("click", C)
   ), {
     items: o,
     indexedItems: t,
-    addItem: x,
+    addItem: p,
     removeItem: c,
     setItemIndex: a,
-    openBox: r,
-    closeBox: m,
+    openBox: l,
+    closeBox: x,
     selectedItem: n,
     selectItem: d,
-    clearIndexedItems: M,
+    clearIndexedItems: i,
     addItemToIndexedItems: K,
-    next: v,
-    prev: s,
-    searchBox: i,
+    next: f,
+    prev: m,
+    searchBox: r,
     isOpen: e
   };
-}, j = Symbol("suggestion"), h = () => {
+}, M = Symbol("suggestion"), h = () => {
   var t, e;
-  const o = T(j);
+  const o = T(M);
   if (!o)
-    throw new Error(`${((t = k()) == null ? void 0 : t.type.name) || ((e = k()) == null ? void 0 : e.type.__name) || "this component"} must be included in the SearchBox.`);
+    throw new Error(`${((t = S()) == null ? void 0 : t.type.name) || ((e = S()) == null ? void 0 : e.type.__name) || "this component"} must be included in the SearchBox.`);
   return o;
-}, q = B({
+}, q = _({
   name: "SearchBox",
   setup(o, { slots: t }) {
     const e = R();
-    U(j, e);
-    const { setItemIndex: n, clearIndexedItems: i, addItemToIndexedItems: x, searchBox: c } = e;
-    return b(e.items, () => {
+    U(M, e);
+    const { setItemIndex: n, clearIndexedItems: r, addItemToIndexedItems: p, searchBox: c } = e;
+    return V(e.items, () => {
       if (!c.value)
         return;
       const a = c.value.getElementsByClassName("suggestion-item");
-      i();
+      r();
       for (let d = 0; d < a.length; d++) {
-        const r = a[d];
-        !r || (n(r, d), x(r));
+        const l = a[d];
+        !l || (n(l, d), p(l));
       }
     }), () => L(
       "div",
@@ -72,79 +72,81 @@ const R = () => {
         class: "search-box",
         ref: c
       },
-      [S(t, "default")]
+      [w(t, "default")]
     );
   }
 }), A = {
   key: 0,
   class: "suggestion-box"
-}, G = /* @__PURE__ */ B({
+}, G = /* @__PURE__ */ _({
   __name: "SuggestionBox",
   setup(o) {
     const { isOpen: t } = h();
-    return (e, n) => p(t) ? (w(), $("div", A, [
-      S(e.$slots, "default")
+    return (e, n) => v(t) ? (y(), $("div", A, [
+      w(e.$slots, "default")
     ])) : N("", !0);
   }
-}), J = /* @__PURE__ */ B({
+}), J = /* @__PURE__ */ _({
   __name: "SuggestionInput",
   props: {
     modelValue: { default: "" }
   },
   emits: ["update:modelValue", "enter"],
   setup(o, { emit: t }) {
-    const e = o, { selectedItem: n, openBox: i, closeBox: x, selectItem: c, next: a, prev: d } = h(), r = (v) => {
-      n.value || t("enter", v), c();
-    }, m = E({
+    const e = o, { selectedItem: n, openBox: r, closeBox: p, selectItem: c, next: a, prev: d } = h(), l = g(), x = (m) => {
+      n.value || t("enter", m), l.value && l.value.blur(), c();
+    }, f = j({
       get: () => e.modelValue,
-      set: (v) => t("update:modelValue", v)
+      set: (m) => t("update:modelValue", m)
     });
-    return (v, s) => O((w(), $("input", {
+    return (m, s) => O((y(), $("input", {
       type: "search",
       class: "suggestion-input",
-      "onUpdate:modelValue": s[0] || (s[0] = (l) => P(m) ? m.value = l : null),
+      "onUpdate:modelValue": s[0] || (s[0] = (i) => P(f) ? f.value = i : null),
       onKeydown: [
-        s[1] || (s[1] = g(_((l) => r(l), ["prevent"]), ["enter"])),
-        s[2] || (s[2] = g(_((l) => p(a)(), ["prevent"]), ["down"])),
-        s[3] || (s[3] = g(_((l) => p(d)(), ["prevent"]), ["up"])),
-        s[4] || (s[4] = g((l) => p(x)(), ["tab"]))
+        s[1] || (s[1] = B(k((i) => x(i), ["prevent"]), ["enter"])),
+        s[2] || (s[2] = B(k((i) => v(a)(), ["prevent"]), ["down"])),
+        s[3] || (s[3] = B(k((i) => v(d)(), ["prevent"]), ["up"])),
+        s[4] || (s[4] = B((i) => v(p)(), ["tab"]))
       ],
-      onFocus: s[5] || (s[5] = (...l) => p(i) && p(i)(...l))
+      onFocus: s[5] || (s[5] = (...i) => v(r) && v(r)(...i)),
+      ref_key: "inputEl",
+      ref: l
     }, null, 544)), [
-      [z, p(m)]
+      [z, v(f)]
     ]);
   }
 }), Q = {
   name: "SuggestionItem"
-}, W = /* @__PURE__ */ B({
+}, W = /* @__PURE__ */ _({
   ...Q,
   emits: ["pick", "select"],
   setup(o, { emit: t }) {
-    const e = I(null), { addItem: n, removeItem: i, closeBox: x, selectedItem: c } = h();
-    k();
+    const e = g(null), { addItem: n, removeItem: r, closeBox: p, selectedItem: c } = h();
+    S();
     const a = () => {
-      x(), t("pick");
-    }, r = V({
+      p(), t("pick");
+    }, l = b({
       index: 0,
       pick: a,
       select: () => {
         t("select");
       }
-    }), m = E(() => c.value === r);
+    }), x = j(() => c.value === l);
     return D(() => {
-      !e.value || n(e.value, r);
+      !e.value || n(e.value, l);
     }), F(() => {
-      !e.value || i(e.value);
-    }), (v, s) => (w(), $("div", {
+      !e.value || r(e.value);
+    }), (f, m) => (y(), $("div", {
       class: H(["suggestion-item", {
-        selected: p(m)
+        selected: v(x)
       }]),
-      onClick: s[0] || (s[0] = (l) => a()),
+      onClick: m[0] || (m[0] = (s) => a()),
       ref_key: "element",
       ref: e
     }, [
-      S(v.$slots, "default", {
-        index: r.index
+      w(f.$slots, "default", {
+        index: l.index
       })
     ], 2));
   }

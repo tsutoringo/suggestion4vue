@@ -15,6 +15,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     selectItem: () => void;
     next: () => void;
     prev: () => void;
+    inputEl: import("vue").Ref<HTMLInputElement | null | undefined>;
     props: any;
     emit: {
         (event: 'update:modelValue', value: string): void;

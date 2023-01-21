@@ -23,6 +23,7 @@ declare const _default: {
         selectItem: () => void;
         next: () => void;
         prev: () => void;
+        inputEl: import("vue").Ref<HTMLInputElement | null | undefined>;
         props: any;
         emit: {
             (event: "update:modelValue", value: string): void;
