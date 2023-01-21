@@ -11,6 +11,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         select: () => void;
     }>;
     openBox: () => boolean;
+    closeBox: () => boolean;
     selectItem: () => void;
     next: () => void;
     prev: () => void;

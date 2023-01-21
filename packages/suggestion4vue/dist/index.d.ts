@@ -19,6 +19,7 @@ declare const _default: {
             select: () => void;
         }>;
         openBox: () => boolean;
+        closeBox: () => boolean;
         selectItem: () => void;
         next: () => void;
         prev: () => void;
