@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SearchBox, SuggestionInput, SuggestionItem } from 'suggestion4vue';
+import Suggestion from 'suggestion4vue';
 import { computed, ref } from 'vue';
 import confetti from 'canvas-confetti';
 
@@ -9,10 +9,10 @@ const searchResult = computed(() => searchValue.value === '' ? items : items.fil
 </script>
 
 <template>
-  <SearchBox>
-    <SuggestionInput v-model="searchValue" />
-    <SuggestionItem v-for="item in searchResult" :key="item" v-slot="{index}" @pick="() => confetti()">{{ index }}{{ item }}</SuggestionItem>
-  </SearchBox>
+  <Suggestion.Box>
+    <Suggestion.Input v-model="searchValue" />
+    <Suggestion.Item v-for="item in searchResult" :key="item" v-slot="{index}" @pick="() => confetti()">{{ index }}{{ item }}</Suggestion.Item>
+  </Suggestion.Box>
 </template>
 
 <style scoped>
