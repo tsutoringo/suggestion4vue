@@ -1,8 +1,9 @@
+export { default as SearchBox } from './components/SearchBox.vue';
 export { default as Box } from './components/SuggestionBox.vue';
 export { default as Input } from './components/SuggestionInput.vue';
 export { default as Item } from './components/SuggestionItem.vue';
 declare const _default: {
-    Box: import("vue").DefineComponent<{}, () => import("vue").VNode<import("vue").RendererNode, import("vue").RendererElement, {
+    SearchBox: import("vue").DefineComponent<{}, () => import("vue").VNode<import("vue").RendererNode, import("vue").RendererElement, {
         [key: string]: any;
     }>, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}>;
     Input: import("vue").DefineComponent<{
@@ -17,6 +18,7 @@ declare const _default: {
             pick: () => void;
             select: () => void;
         }>;
+        openBox: () => boolean;
         selectItem: () => void;
         next: () => void;
         prev: () => void;
@@ -40,8 +42,9 @@ declare const _default: {
         modelValue: string;
     }>;
     Item: import("vue").DefineComponent<{}, {
-        addItem: (uid: number, item: import("./components/provider").SuggestionItem) => void;
-        removeItem: (uid: number) => void;
+        element: import("vue").Ref<HTMLDivElement | null>;
+        addItem: (element: Element, item: import("./components/provider").SuggestionItem) => void;
+        removeItem: (element: Element) => void;
         closeBox: () => boolean;
         selectedItem: import("vue").Ref<void | {
             index: number;
@@ -65,5 +68,8 @@ declare const _default: {
         onPick?: ((...args: any[]) => any) | undefined;
         onSelect?: ((...args: any[]) => any) | undefined;
     }, {}>;
+    Box: import("vue").DefineComponent<{}, {
+        isOpen: import("vue").Ref<boolean>;
+    }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}>;
 };
 export default _default;

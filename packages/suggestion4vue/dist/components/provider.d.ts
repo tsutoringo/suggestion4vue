@@ -1,14 +1,14 @@
 import { InjectionKey } from 'vue';
 export declare const useSuggestionProvider: () => {
-    items: Map<number, SuggestionItem>;
+    items: Map<Element, SuggestionItem>;
     indexedItems: import("vue").Ref<{
         index: number;
         pick: () => void;
         select: () => void;
     }[]>;
-    addItem: (uid: number, item: SuggestionItem) => void;
-    removeItem: (uid: number) => void;
-    setItemIndex: (uid: number, index: number) => void;
+    addItem: (element: Element, item: SuggestionItem) => void;
+    removeItem: (element: Element) => void;
+    setItemIndex: (element: Element, index: number) => void;
     openBox: () => boolean;
     closeBox: () => boolean;
     selectedItem: import("vue").Ref<void | {
@@ -18,9 +18,11 @@ export declare const useSuggestionProvider: () => {
     }>;
     selectItem: () => void;
     clearIndexedItems: () => never[];
-    addItemToIndexedItems: (uid: number) => void;
+    addItemToIndexedItems: (element: Element) => void;
     next: () => void;
     prev: () => void;
+    searchBox: import("vue").Ref<void | Element>;
+    isOpen: import("vue").Ref<boolean>;
 };
 export interface SuggestionItem {
     index: number;
@@ -30,15 +32,15 @@ export interface SuggestionItem {
 export declare type SuggestionStore = ReturnType<typeof useSuggestionProvider>;
 export declare const suggestionInjectionKey: InjectionKey<SuggestionStore>;
 export declare const injectSuggestionProvider: () => {
-    items: Map<number, SuggestionItem>;
+    items: Map<Element, SuggestionItem>;
     indexedItems: import("vue").Ref<{
         index: number;
         pick: () => void;
         select: () => void;
     }[]>;
-    addItem: (uid: number, item: SuggestionItem) => void;
-    removeItem: (uid: number) => void;
-    setItemIndex: (uid: number, index: number) => void;
+    addItem: (element: Element, item: SuggestionItem) => void;
+    removeItem: (element: Element) => void;
+    setItemIndex: (element: Element, index: number) => void;
     openBox: () => boolean;
     closeBox: () => boolean;
     selectedItem: import("vue").Ref<void | {
@@ -48,7 +50,9 @@ export declare const injectSuggestionProvider: () => {
     }>;
     selectItem: () => void;
     clearIndexedItems: () => never[];
-    addItemToIndexedItems: (uid: number) => void;
+    addItemToIndexedItems: (element: Element) => void;
     next: () => void;
     prev: () => void;
+    searchBox: import("vue").Ref<void | Element>;
+    isOpen: import("vue").Ref<boolean>;
 };

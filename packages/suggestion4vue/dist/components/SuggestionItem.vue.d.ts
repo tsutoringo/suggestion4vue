@@ -1,7 +1,8 @@
 import { SuggestionItem } from './provider';
 declare const _sfc_main: import("vue").DefineComponent<{}, {
-    addItem: (uid: number, item: SuggestionItem) => void;
-    removeItem: (uid: number) => void;
+    element: import("vue").Ref<HTMLDivElement | null>;
+    addItem: (element: Element, item: SuggestionItem) => void;
+    removeItem: (element: Element) => void;
     closeBox: () => boolean;
     selectedItem: import("vue").Ref<void | {
         index: number;

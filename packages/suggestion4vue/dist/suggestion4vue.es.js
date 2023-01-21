@@ -1,137 +1,163 @@
-import { reactive as k, ref as x, inject as b, getCurrentInstance as w, defineComponent as S, computed as B, onMounted as K, onUnmounted as U, openBlock as $, createElementBlock as V, normalizeClass as E, unref as I, renderSlot as h, provide as P, watch as z, h as _, withDirectives as D, isRef as N, withKeys as f, withModifiers as g, vModelText as O } from "vue";
-import { getVNodesByType as R } from "@tsutoringo/vue-utils";
-const q = () => {
-  const d = k(/* @__PURE__ */ new Map()), e = x([]), s = x(!0), t = x(void 0), a = (c, p) => {
-    d.set(c, p);
+import { reactive as V, ref as x, watch as E, inject as T, getCurrentInstance as S, defineComponent as I, provide as U, h as L, renderSlot as k, unref as p, openBlock as h, createElementBlock as w, createCommentVNode as N, computed as b, withDirectives as O, isRef as P, withKeys as B, withModifiers as _, vModelText as z, onMounted as D, onBeforeUnmount as F, normalizeClass as H } from "vue";
+const R = () => {
+  const l = V(/* @__PURE__ */ new Map()), e = x([]), t = x(!1), n = x(void 0), i = x(void 0), d = (c, f) => {
+    l.set(c, f);
   }, m = (c) => {
-    d.delete(c);
-  }, o = (c, p) => {
-    const y = d.get(c);
-    !y || (y.index = p);
-  }, i = () => {
-    !t.value || t.value.pick();
-  }, r = () => s.value = !0, n = () => s.value = !1, u = () => {
-    t.value = t.value ? e.value[t.value.index + 1] : e.value[0], v();
-  }, l = () => {
-    t.value = t.value ? e.value[t.value.index - 1] : e.value[e.value.length - 1], v();
+    l.delete(c);
+  }, a = (c, f) => {
+    const C = l.get(c);
+    !C || (C.index = f);
   }, v = () => {
-    t.value && t.value.select();
+    !n.value || n.value.pick();
+  }, s = () => t.value = !0, u = () => t.value = !1, o = () => {
+    n.value = n.value ? e.value[n.value.index + 1] : e.value[0], g();
+  }, r = () => {
+    n.value = n.value ? e.value[n.value.index - 1] : e.value[e.value.length - 1], g();
+  }, g = () => {
+    n.value && n.value.select();
+  }, M = () => e.value = [], K = (c) => {
+    const f = l.get(c);
+    if (!f) {
+      console.warn(`Unknown item ${c}`);
+      return;
+    }
+    e.value.push(f);
+  }, $ = (c) => {
+    t.value && i.value && !i.value.contains(c.target) && u();
   };
-  return {
-    items: d,
+  return E(
+    t,
+    (c) => c ? document.addEventListener("click", $) : document.removeEventListener("click", $)
+  ), {
+    items: l,
     indexedItems: e,
-    addItem: a,
+    addItem: d,
     removeItem: m,
-    setItemIndex: o,
-    openBox: r,
-    closeBox: n,
-    selectedItem: t,
-    selectItem: i,
-    clearIndexedItems: () => e.value = [],
-    addItemToIndexedItems: (c) => {
-      const p = d.get(c);
-      if (!p) {
-        console.warn(`Unknown item ${c}`);
-        return;
-      }
-      e.value.push(p);
-    },
-    next: u,
-    prev: l
+    setItemIndex: a,
+    openBox: s,
+    closeBox: u,
+    selectedItem: n,
+    selectItem: v,
+    clearIndexedItems: M,
+    addItemToIndexedItems: K,
+    next: o,
+    prev: r,
+    searchBox: i,
+    isOpen: t
   };
-}, T = Symbol("suggestion"), j = () => {
-  var e, s;
-  const d = b(T);
-  if (!d)
-    throw new Error(`${((e = w()) == null ? void 0 : e.type.name) || ((s = w()) == null ? void 0 : s.type.__name) || "this component"} must be included in the SearchBox.`);
-  return d;
-}, A = {
-  name: "SuggestionItem"
-}, C = /* @__PURE__ */ S({
-  ...A,
-  emits: ["pick", "select"],
-  setup(d, { emit: e }) {
-    const { addItem: s, removeItem: t, closeBox: a, selectedItem: m } = j(), o = w(), i = () => {
-      a(), e("pick");
-    }, n = k({
-      index: 0,
-      pick: i,
-      select: () => {
-        e("select");
-      }
-    }), u = B(() => m.value === n);
-    return K(() => {
-      !(o != null && o.uid) || s(o.uid, n);
-    }), U(() => {
-      !(o != null && o.uid) || t(o.uid);
-    }), (l, v) => ($(), V("div", {
-      class: E(["suggestion-item", {
-        selected: I(u)
-      }]),
-      onClick: v[0] || (v[0] = (M) => i())
-    }, [
-      h(l.$slots, "default", {
-        index: n.index
-      })
-    ], 2));
-  }
-}), F = S({
-  name: "SuggestionBox",
-  setup(d, { slots: e }) {
-    const s = B(() => h(e, "default")), t = q();
-    P(T, t);
-    const { setItemIndex: a, clearIndexedItems: m, addItemToIndexedItems: o } = t;
-    return z(t.items, () => {
-      var r;
-      if (!s.value)
+}, j = Symbol("suggestion"), y = () => {
+  var e, t;
+  const l = T(j);
+  if (!l)
+    throw new Error(`${((e = S()) == null ? void 0 : e.type.name) || ((t = S()) == null ? void 0 : t.type.__name) || "this component"} must be included in the SearchBox.`);
+  return l;
+}, q = I({
+  name: "SearchBox",
+  setup(l, { slots: e }) {
+    let t = null;
+    const n = R();
+    U(j, n);
+    const { setItemIndex: i, clearIndexedItems: d, addItemToIndexedItems: m, searchBox: a } = n;
+    return E(n.items, () => {
+      if (!a.value)
         return;
-      const i = R([s.value], C);
-      m();
-      for (let n = 0; n < i.length; n++) {
-        const l = (r = i[n].component) == null ? void 0 : r.uid;
-        !l || (a(l, n), o(l));
+      const v = a.value.getElementsByClassName("suggestion-item");
+      d();
+      for (let s = 0; s < v.length; s++) {
+        const u = v[s];
+        !u || (i(u, s), m(u));
       }
-    }), () => _(
+    }), () => (t = L(
       "div",
       {
-        class: "suggestion-box"
+        class: "search-box",
+        ref: a
       },
-      [_(s.value)]
-    );
+      [k(e, "default")]
+    ), t);
   }
-}), G = /* @__PURE__ */ S({
+}), A = {
+  key: 0,
+  class: "suggestion-box"
+}, G = /* @__PURE__ */ I({
+  __name: "SuggestionBox",
+  setup(l) {
+    const { isOpen: e } = y();
+    return (t, n) => p(e) ? (h(), w("div", A, [
+      k(t.$slots, "default")
+    ])) : N("", !0);
+  }
+}), J = /* @__PURE__ */ I({
   __name: "SuggestionInput",
   props: {
     modelValue: { default: "" }
   },
   emits: ["update:modelValue", "enter"],
-  setup(d, { emit: e }) {
-    const s = d, { selectedItem: t, selectItem: a, next: m, prev: o } = j(), i = (n) => {
-      t.value || e("enter", n), a();
-    }, r = B({
-      get: () => s.modelValue,
-      set: (n) => e("update:modelValue", n)
+  setup(l, { emit: e }) {
+    const t = l, { selectedItem: n, openBox: i, selectItem: d, next: m, prev: a } = y(), v = (u) => {
+      n.value || e("enter", u), d();
+    }, s = b({
+      get: () => t.modelValue,
+      set: (u) => e("update:modelValue", u)
     });
-    return (n, u) => D(($(), V("input", {
+    return (u, o) => O((h(), w("input", {
       type: "search",
-      "onUpdate:modelValue": u[0] || (u[0] = (l) => N(r) ? r.value = l : null),
+      class: "suggestion-input",
+      "onUpdate:modelValue": o[0] || (o[0] = (r) => P(s) ? s.value = r : null),
       onKeydown: [
-        u[1] || (u[1] = f(g((l) => i(l), ["prevent"]), ["enter"])),
-        u[2] || (u[2] = f(g((l) => I(m)(), ["prevent"]), ["down"])),
-        u[3] || (u[3] = f(g((l) => I(o)(), ["prevent"]), ["up"]))
-      ]
+        o[1] || (o[1] = B(_((r) => v(r), ["prevent"]), ["enter"])),
+        o[2] || (o[2] = B(_((r) => p(m)(), ["prevent"]), ["down"])),
+        o[3] || (o[3] = B(_((r) => p(a)(), ["prevent"]), ["up"]))
+      ],
+      onFocus: o[4] || (o[4] = (...r) => p(i) && p(i)(...r))
     }, null, 544)), [
-      [O, I(r)]
+      [z, p(s)]
     ]);
   }
 }), Q = {
-  Box: F,
-  Input: G,
-  Item: C
+  name: "SuggestionItem"
+}, W = /* @__PURE__ */ I({
+  ...Q,
+  emits: ["pick", "select"],
+  setup(l, { emit: e }) {
+    const t = x(null), { addItem: n, removeItem: i, closeBox: d, selectedItem: m } = y();
+    S();
+    const a = () => {
+      d(), e("pick");
+    }, s = V({
+      index: 0,
+      pick: a,
+      select: () => {
+        e("select");
+      }
+    }), u = b(() => m.value === s);
+    return D(() => {
+      !t.value || n(t.value, s);
+    }), F(() => {
+      !t.value || i(t.value);
+    }), (o, r) => (h(), w("div", {
+      class: H(["suggestion-item", {
+        selected: p(u)
+      }]),
+      onClick: r[0] || (r[0] = (g) => a()),
+      ref_key: "element",
+      ref: t
+    }, [
+      k(o.$slots, "default", {
+        index: s.index
+      })
+    ], 2));
+  }
+}), Y = {
+  SearchBox: q,
+  Input: J,
+  Item: W,
+  Box: G
 };
 export {
-  F as Box,
-  G as Input,
-  C as Item,
-  Q as default
+  G as Box,
+  J as Input,
+  W as Item,
+  q as SearchBox,
+  Y as default
 };
