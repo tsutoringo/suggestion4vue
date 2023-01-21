@@ -9,3 +9,4 @@ const { isOpen } = injectSuggestionProvider();
     <slot name="default"></slot>
   </div>
 </template>
+ 

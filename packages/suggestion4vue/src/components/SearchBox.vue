@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, h, provide, renderSlot, watch } from 'vue';
+import { computed, defineComponent, h, nextTick, provide, renderSlot, VNode, watch } from 'vue';
 import { getVNodesByType } from '@tsutoringo/vue-utils';
 import SuggestionItem from './SuggestionItem.vue'
 import { suggestionInjectionKey, useSuggestionProvider } from './provider';
@@ -7,7 +7,7 @@ import { suggestionInjectionKey, useSuggestionProvider } from './provider';
 export default defineComponent({
   name: 'SearchBox',
   setup (props, { slots }) {
-    const defaultSlots = computed(() => renderSlot(slots, 'default'));
+    let renderedSlot: VNode | null = null;
 
     const provided = useSuggestionProvider();
     provide(suggestionInjectionKey, provided);
@@ -15,30 +15,34 @@ export default defineComponent({
 
     // Reindex
     watch(provided.items, () => {
-      if (!defaultSlots.value) return;
 
-      const nodes = getVNodesByType([defaultSlots.value] || [], SuggestionItem);
+      if (!searchBox.value) return;
+
+      const elements = searchBox.value.getElementsByClassName('suggestion-item');
       clearIndexedItems();
 
-      for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        const uid = node.component?.uid;
+      for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
 
-        if (!uid) continue;
+        if (!element) continue;
 
-        setItemIndex(uid, i);
-        addItemToIndexedItems(uid);
+        setItemIndex(element, i);
+        addItemToIndexedItems(element);
       }
     });
 
-    return () => h(
-      'div',
-      {
-        class: 'search-box',
-        ref: searchBox
-      },
-      [h(defaultSlots.value)]
-    )
+    return () => {
+      renderedSlot = h(
+        'div',
+        {
+          class: 'search-box',
+          ref: searchBox
+        },
+        [renderSlot(slots, 'default')]
+      );
+
+      return renderedSlot;
+    }
   }
 });
 </script>

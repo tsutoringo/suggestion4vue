@@ -1,22 +1,22 @@
 import { getCurrentInstance, inject, InjectionKey, reactive, ref, watch } from 'vue';
 
 export const useSuggestionProvider = () => {
-  const items = reactive<Map<number, SuggestionItem>>(new Map());
+  const items = reactive<Map<Element, SuggestionItem>>(new Map());
   const indexedItems = ref<SuggestionItem[]>([]);
   const isOpen = ref<boolean>(false);
   const selectedItem = ref<SuggestionItem | void>(undefined);
-  const searchBox = ref<HTMLElement | void>(undefined);
+  const searchBox = ref<Element | void>(undefined);
 
-  const addItem = (uid: number, item: SuggestionItem) => {
-    items.set(uid, item);
+  const addItem = (element: Element, item: SuggestionItem) => {
+    items.set(element, item);
   };
 
-  const removeItem = (uid: number) => {
-    items.delete(uid);
+  const removeItem = (element: Element) => {
+    items.delete(element);
   };
 
-  const setItemIndex = (uid: number, index: number) => {
-    const item = items.get(uid);
+  const setItemIndex = (element: Element, index: number) => {
+    const item = items.get(element);
 
     if (!item) return;
 
@@ -55,11 +55,11 @@ export const useSuggestionProvider = () => {
   }
 
   const clearIndexedItems = () => indexedItems.value = [];
-  const addItemToIndexedItems = (uid: number) => {
-    const item = items.get(uid);
+  const addItemToIndexedItems = (element: Element) => {
+    const item = items.get(element);
 
     if (!item) {
-      console.warn(`Unknown item ${uid}`);
+      console.warn(`Unknown item ${element}`);
       return;
     }
 

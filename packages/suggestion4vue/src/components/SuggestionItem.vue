@@ -5,8 +5,9 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { computed, getCurrentInstance, onMounted, onUnmounted, reactive } from 'vue';
+import { computed, getCurrentInstance, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import { injectSuggestionProvider, SuggestionItem } from './provider';
+const element = ref<HTMLDivElement | null>(null);
 
 const { addItem, removeItem, closeBox, selectedItem } = injectSuggestionProvider();
 const instance = getCurrentInstance();
@@ -34,15 +35,15 @@ const suggestionItem = reactive<SuggestionItem>({
 const isSelected = computed(() => selectedItem.value === suggestionItem)
 
 onMounted(() => {
-  if (!instance?.uid) return;
+  if (!element.value) return;
 
-  addItem(instance.uid, suggestionItem)
+  addItem(element.value, suggestionItem)
 });
 
-onUnmounted(() => {
-  if (!instance?.uid) return;
+onBeforeUnmount(() => {
+  if (!element.value) return;
 
-  removeItem(instance.uid);
+  removeItem(element.value);
 });
 </script>
 
@@ -52,6 +53,7 @@ onUnmounted(() => {
     :class="{
       selected: isSelected
     }"
+    ref="element"
   >
     <slot name="default"
       :index="suggestionItem.index"
