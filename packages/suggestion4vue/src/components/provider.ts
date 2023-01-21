@@ -30,7 +30,10 @@ export const useSuggestionProvider = () => {
   };
 
   const openBox = () => isOpen.value = true;
-  const closeBox = () => isOpen.value = false;
+  const closeBox = () => {
+    selectedItem.value = undefined;
+    isOpen.value = false
+  };
 
   const next = () => {
     selectedItem.value = selectedItem.value
