@@ -30,6 +30,7 @@ const value = computed<string>({
 <template>
   <input
     type="search"
+    class="suggestion-input"
     v-model="value"
     @keydown.enter.prevent="enter($event)"
     @keydown.down.prevent="next()"

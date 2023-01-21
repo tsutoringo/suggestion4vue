@@ -5,7 +5,7 @@ import SuggestionItem from './SuggestionItem.vue'
 import { suggestionInjectionKey, useSuggestionProvider } from './provider';
 
 export default defineComponent({
-  name: 'SearchBox',
+  name: 'SuggestionBox',
   setup (props, { slots }) {
     const defaultSlots = computed(() => renderSlot(slots, 'default'));
 
@@ -31,9 +31,13 @@ export default defineComponent({
       }
     });
 
-    return () => {
-      return h(defaultSlots.value);
-    };
+    return () => h(
+      'div',
+      {
+        class: 'suggestion-box'
+      },
+      [h(defaultSlots.value)]
+    )
   }
 });
 </script>
