@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { injectSuggestionProvider } from './provider';
 
 const { selectedItem, openBox, closeBox, selectItem, next, prev } = injectSuggestionProvider();
+const inputEl = ref<HTMLInputElement | null>()
 
 const props = withDefaults(
   defineProps<{
@@ -18,6 +19,7 @@ const emit = defineEmits<{
 
 const enter = (e: KeyboardEvent) => {
   if (!selectedItem.value) emit('enter', e);
+  if (inputEl.value) inputEl.value.blur();
   selectItem();
 };
 
@@ -37,5 +39,6 @@ const value = computed<string>({
     @keydown.up.prevent="prev()"
     @keydown.tab="closeBox()"
     @focus="openBox"
+    ref="inputEl"
   >
 </template>
