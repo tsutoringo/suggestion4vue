@@ -23,7 +23,7 @@ export const useSuggestionProvider = () => {
     item.index = index;
   };
 
-  const selectItem = () => {
+  const pickItem = () => {
     if (!selectedItem.value) return;
 
     selectedItem.value.pick();
@@ -90,7 +90,7 @@ export const useSuggestionProvider = () => {
     openBox,
     closeBox,
     selectedItem,
-    selectItem,
+    pickItem,
     clearIndexedItems,
     addItemToIndexedItems,
     next,
